@@ -16,4 +16,4 @@ var maxSubArray = function(nums) {
     return best
 };
 
-console.log(maxSubArray)
+console.log(maxSubArray)  
