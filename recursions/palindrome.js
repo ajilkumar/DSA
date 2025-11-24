@@ -11,7 +11,7 @@ function isPalindrome(num) {
     if (start >= end) return true;
 
     // If mismatch, not a palindrome
-    if (str[start] !== str[end]) return false;
+    if (str[start] !== str[end]) return false; 
 
     // Recur inward
     return check(start + 1, end - 1);
