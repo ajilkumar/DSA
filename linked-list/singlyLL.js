@@ -1,69 +1,122 @@
-/**
- 
+// Linked List in Javascript
 
-Linked List Cycle
-------------------------------------------------------------------
-Given head, the head of a linked list, determine if the linked list has a cycle in it.
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
 
-There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+// Singly Linked List
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
 
-Return true if there is a cycle in the linked list. Otherwise, return false.
+  //   Add at the beginning
+  addFirst(data) {
+    const newNode = new Node(data);
+    newNode.next = this.head;
+    this.head = newNode;
+  }
 
- 
-------------------------------------------------------------------
-Example 1:
+  //   Add at the end
+  addLast(data) {
+    const newNode = new Node(data);
 
-Input: head = [3,2,0,-4], pos = 1
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
-------------------------------------------------------------------
-Example 2:
-
-Input: head = [1,2], pos = 0
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
-------------------------------------------------------------------
-Example 3:
-
-Input: head = [1], pos = -1
-Output: false
-Explanation: There is no cycle in the linked list.
- 
-------------------------------------------------------------------
-Constraints:
-
-The number of the nodes in the list is in the range [0, 104].
--105 <= Node.val <= 105
-pos is -1 or a valid index in the linked-list.
- 
-
- */
-
-var hasCycle = function (head) {
-    let slow = head;
-    let fast = head;
-
-    while (fast !== null && fast.next !== null) {
-        slow = slow.next;
-        fast = fast.next.next;
-
-        if (slow === fast) {
-            return true;
-        }
+    if (!this.head) {
+      this.head = newNode;
+      return;
     }
 
-    return false;
-};
+    let current = this.head;
+    while (current.next) {
+      current = current.next;
+    }
+
+    current.next = newNode;
+  }
+
+  //   Size of the linked list
+  size() {
+    let count = 0;
+    let current = this.head;
+    while (current) {
+      count++;
+      current = current.next;
+    }
+    return count;
+  }
+
+  //   Add at specific index
+  addAt(data, index) {
+    if (index < 0 || index > this.size()) {
+      console.error(`Invalid index`);
+    }
+
+    const newNode = new Node(data);
+    if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return;
+    }
+    let current = this.head;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+    newNode.next = current.next;
+    current.next = newNode;
+  }
+
+  //   Remove from top
+  removeTop() {
+    if (!this.head) {
+      return;
+    }
+    let current = this.head;
+    while (current.next.next) {
+      current = current.next;
+    }
+    current.next = null;
+  }
+
+  //   Remove at specific index
+  removeAt(index) {
+    if (index < 0 || index > this.size()) {
+      console.error(`Invalid index`);
+      return;
+    }
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+    let current = this.head;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+    current.next = current.next.next;
+  }
+
+  //   Print the linked list
+  print() {
+    let current = this.head;
+    while (current) {
+      console.log(current.data);
+      current = current.next;
+    }
+  }
+}
 
 
-// Example usage:
-let node1 = { val: 3, next: null };
-let node2 = { val: 2, next: null };
-let node3 = { val: 0, next: null };
-let node4 = { val: -4, next: null };
+const linkedList = new LinkedList()
+linkedList.addFirst(5)
+linkedList.addFirst(3)
+linkedList.addFirst(8)
+linkedList.addLast(10)
 
-node1.next = node2;
-node2.next = node3;
-node3.next = node4;
-node4.next = node2; // Creates a cycle here
-console.log(hasCycle(node1)); // true
+linkedList.removeTop()
+linkedList.addAt(7,2)
+
+linkedList.print()
+console.log(`Size:`,linkedList.size())
+
