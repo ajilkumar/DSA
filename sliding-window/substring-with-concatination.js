@@ -99,4 +99,4 @@ class Solution {
 
 // Example Usage
 const solution = new Solution();
-console.log(solution.findSubstring("barfoothefoobarman", ["foo", "bar"])); // Output: [0, 9]
+console.log(solution.findSubstring("barfoothefoobarman", ["foo", "bar"])); // Output: [0, 9] 
